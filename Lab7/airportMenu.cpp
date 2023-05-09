@@ -19,14 +19,13 @@ using namespace std;
 // Main menus
 
 /**
- * Displays the options for the main menu, gets the user's choice, and returns it.
- * @return the user's choice from the menu options
+ * Displays the options for the main menu, gets the user's choice, and calls the appropriate menu function,
 */
-int menu_Main()
+void menu_Main(BinarySearchTree<Airport>* tree)
 {
+
     // initialize the choice variable to store the user's choice
-    string temp;
-    int choice = 0;
+    int choice;
 
     // display the sub menus
     cout << "Main Menu" << endl;
@@ -39,32 +38,49 @@ int menu_Main()
 
     // prompt user for choice & store it
     cout << "Please enter your choice: " << endl;
-    cin >> temp;
-    choice = stoi(temp);
+    cin >> choice;
 
-    // error check 
-    while (choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5)
+    // validation
+    while (choice < 1 || choice > 5)
     {
-        cout << "Invalid entry. Must be a number 1-5.";
-        cout << "Please enter your choice: " << endl;
-        cin >> temp;
-        choice = stoi(temp);
-    } 
+        cout << "Please enter a valid option 1-5: " << endl;
+        cin >> choice;
+    }
 
-    // return the user's choice
-    return choice;
+    // open the appropriate menu
+    if (choice == 1) // search
+    {
+        menu_Search(tree);
+    }
+    else if (choice == 2) // reports
+    {
+        menu_Report(tree);
+    }
+    else if (choice == 3) // maximums, minimums
+    {
+        menu_MaxMin(tree);
+    }
+    else if (choice == 4) // edits
+    {
+        menu_Edit(tree);
+    }
+    else if (choice == 5) // exit 
+    {
+        cout << "Exiting the program..." << endl;
+        exit(0);
+    }
+
 
 }
 
 /**
- * Displays the options for the search menu, gets the user's choice, and returns it.
- * @return the user's choice from the menu options
+ * Displays the options for the search menu, gets the user's choice, and runs the appropriate helper function.
 */
-int menu_Search()
+void menu_Search(BinarySearchTree<Airport>* tree)
 {
+
     // initialize the choice variable to store the user's choice
-    string temp;
-    int choice = 0;
+    int choice;
 
     // display the sub menus
     cout << "✧˖°. Search Menu ✧˖°." << endl;
@@ -76,33 +92,86 @@ int menu_Search()
 
     // prompt user for choice & store it
     cout << "Please enter your choice: " << endl;
-    cin >> temp;
-    choice = stoi(temp);
+    cin >> choice;
 
-    // error check
-    while (choice != 1 && choice != 2 && choice != 3 && choice != 4)
+    // validation
+    while (choice < 1 || choice > 5)
+    {
+        cout << "Please enter a valid option 1-5: " << endl;
+        cin >> choice;
+    }
+
+    // call the search methods
+    if (choice == 1) // search by iata
+    {
+            // declare necessary variables
+            string iataToSearch;
+
+            // prompt user for the code they want to search for
+            cout << "Please enter the IATA code: " << endl;
+            cin >> iataToSearch;
+            transform(iataToSearch.begin(), iataToSearch.end(), iataToSearch.begin(), ::toupper); // make the input upper case
+
+
+            // display the airport
+            tree->searchByCode(tree->getRoot(), iataToSearch);
+
+            menu_Search(tree);
+    }
+
+    else if (choice == 2) // search by state
     {
 
-        cout << "Invalid entry. Must be a number 1-4." << endl;
-        cout << "Please enter your choice: " << endl;
-        cin >> choice; 
+            // declare necessary variables
+            string stateToSearch;
+
+            // prompt user for the code they want to search for
+            cout << "Please enter the State: " << endl;
+            cin >> stateToSearch;
+            transform(stateToSearch.begin(), stateToSearch.end(), stateToSearch.begin(), ::toupper); // make the input upper case
+
+
+            // display the airport
+            tree->searchByState(tree->getRoot(), stateToSearch);
+
+            menu_Search(tree);
 
     }
 
-    // return the user's choice
-    return choice;
+    else if (choice == 3) // search by min. passengers
+    {
+
+            // declare necessary variables
+            string temp;
+            int minPassengersToSearch;
+
+            // prompt user for the code they want to search for
+            cout << "Please enter the minimum passengers: " << endl;
+            cin >> temp;
+            minPassengersToSearch = stoi(temp);
+
+            // display the airports
+            tree->searchByMinPassenger(tree->getRoot(), minPassengersToSearch);
+
+            menu_Search(tree);
+
+    }
+
+    else if (choice == 4)
+    {
+        menu_Main(tree);
+    }
+
 
 }
 
 /**
- * Displays the options for the report menu, gets the user's choice, and returns it.
- * @return the user's choice from the menu options
+ * Displays the options for the report menu, gets the user's choice, and runs the appropriate helper function.
 */
-int menu_Report()
+void menu_Report(BinarySearchTree<Airport>* tree)
 {
     // initialize the choice variable to store the user's choice
-    string temp;
-    int choice = 0;
+    int choice;
 
     // display the sub menus
     cout << "✧˖°. Report Menu ✧˖°." << endl;
@@ -114,34 +183,76 @@ int menu_Report()
 
     // prompt user for choice and store it
     cout << "Please enter your choice: " << endl;
-    cin >> temp;
-    choice = stoi(temp);
+    cin >> choice;
 
-    // error check
-    while (choice != 1 && choice != 2 && choice != 3 && choice != 4)
+    // validation
+    while (choice < 1 || choice > 5)
     {
-
-        cout << "Invalid entry. Must be a number 1-4." << endl;
-        cout << "Please enter your choice: " << endl;
+        cout << "Please enter a valid choice 1-5: " << endl;
         cin >> choice;
-        choice = stoi(temp); 
-
     }
 
-    // return the user's choice
-    return choice;
+    // call the report methods
+    if (choice == 1) // display all airports
+    {
+            // display the header
+            // border
+            cout << setfill('*') << setw(180) << "*" << endl;
+
+            // header items
+            cout << setfill(' ');
+            cout << "Name" << setw(70) << "State" << setw(25) << "City" << setw(10) << "Code";
+            cout << setw(15) << "Passengers" << setw(20) << "Flights" << setw(20) << "Freight" << endl;
+
+            // border
+            cout << setfill('*') << setw(180) << "*" << endl;
+
+            // display each airport in table format
+            tree->displayAllAirports(tree->getRoot());
+
+            menu_Report(tree);
+    }
+
+    else if (choice == 2) // by average passengers
+    {
+            // display the header
+            // header items
+            cout << setfill(' ');
+            cout << "Name" << setw(100) << "City" << setw(22) << "State" << setw(20) << "Code";
+            cout << setw(24) << "Passengers" << endl;
+
+
+            tree->averageDailyPassengers(tree->getRoot());
+
+            menu_Report(tree);
+    }
+
+    else if (choice == 3) // by average flights per day
+    {
+            // header items
+            cout << setfill(' ');
+            cout << "Name" << setw(100) << "City" << setw(22) << "State" << setw(20) << "Code";
+            cout << setw(24) << "Flights" << endl;
+
+            tree->averageDailyFlights(tree->getRoot());
+
+            menu_Report(tree);
+    }
+
+    else if (choice == 4)
+    {
+        menu_Main(tree);
+    }
 
 }
 
 /**
- * Displays the options for the maximum-minimum menu, gets the user's choice, and returns it.
- * @return the user's choice from the menu options
+ * Displays the options for the maximum-minimum menu, gets the user's choice, and runs the appropriate helper function.
 */
-int menu_MaxMin()
+void menu_MaxMin(BinarySearchTree<Airport>* tree)
 {
     // initialize the choice variable to store the user's choice
-    string temp;
-    int choice = 0;
+    int choice;
 
     // display the sub menus
     cout << "✧˖°. Max-Min Menu ✧˖°." << endl;
@@ -156,35 +267,93 @@ int menu_MaxMin()
 
     // prompt user for choice and store it
     cout << "Please enter your choice: " << endl;
-    cin >> temp;
-    choice = stoi(temp);
+    cin >> choice;
 
-    // error check
-    while (choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5
-        && choice != 6 && choice != 7)
+    // validation
+    while (choice < 1 || choice > 7)
     {
+        cout << "Please enter a valid option 1-5: " << endl;
+        cin >> choice;
+    }
 
-        cout << "Invalid entry. Must be a number 1-7." << endl;
-        cout << "Please enter your choice: " << endl;
-        cin >> choice; 
-        choice = stoi(temp);
+    // display the max + mins
+    if (choice == 1) // maximum passengers
+    {
+        Airport temp = tree->maxObjByDataMember(tree->getRoot(), "numPassengers");
+        cout << "Number of Passengers: " << temp.getNumPassengers() << endl;
+        cout << "Airport Name: " << temp.getName() << endl;
+        cout << "Airport Code: " << temp.getIata() << endl;
+
+        menu_MaxMin(tree);
 
     }
 
-    // return the user's choice
-    return choice;
-   
+    else if (choice == 2) // maximum freight
+    {
+        Airport temp = tree->maxObjByDataMember(tree->getRoot(), "freightInTons");
+        cout << "Amount of Freight: " << temp.getFreight() << endl;
+        cout << "Airport Name: " << temp.getName() << endl;
+        cout << "Airport Code: " << temp.getIata() << endl;
+
+        menu_MaxMin(tree);
+    }
+
+    else if (choice == 3) // maximum flights
+    {
+        Airport temp = tree->maxObjByDataMember(tree->getRoot(), "numFlights");
+        cout << "Number of Flights: " << temp.getNumFlights() << endl;
+        cout << "Airport Name: " << temp.getName() << endl;
+        cout << "Airport Code: " << temp.getIata() << endl;
+
+        menu_MaxMin(tree);
+
+    }
+    
+    else if (choice == 4) // minimum passengers
+    {
+        Airport temp = tree->minObjByDataMember(tree->getRoot(), "numPassengers");
+        cout << "Number of Passengers: " << temp.getNumPassengers() << endl;
+        cout << "Airport Name: " << temp.getName() << endl;
+        cout << "Airport Code: " << temp.getIata() << endl;
+
+        menu_MaxMin(tree);
+    }
+
+    else if (choice == 5) // minimum freight
+    {
+        Airport temp = tree->minObjByDataMember(tree->getRoot(), "freightInTons");
+        cout << "Amount of Freight: " << temp.getFreight() << endl;
+        cout << "Airport Name: " << temp.getName() << endl;
+        cout << "Airport Code: " << temp.getIata() << endl;
+
+        menu_MaxMin(tree);
+
+    }
+
+    else if (choice == 6) // minimum flights
+    {
+        Airport temp = tree->minObjByDataMember(tree->getRoot(), "numFlights");
+        cout << "Number of Flights: " << temp.getNumFlights() << endl;
+        cout << "Airport Name: " << temp.getName() << endl;
+        cout << "Airport Code: " << temp.getIata() << endl;
+
+        menu_MaxMin(tree);
+    }
+
+    else if (choice == 7) // go back to main menu
+    {   
+        menu_Main(tree);
+    }
+
 }
 
 /**
- * Displays the options for the edit menu, gets the user's choice, and returns it.
- * @return the user's choice from the menu options
+ * Displays the options for the edit menu, gets the user's choice, and runs the appropriate helper function.
 */
-int menu_Edit()
+void menu_Edit(BinarySearchTree<Airport>* tree)
 {
     // initialize the choice variable to store the user's choice
-    string temp;
-    int choice = 0;
+    int choice;
 
     // display the sub menus
     cout << "✧˖°. Edit Menu ✧˖°." << endl;
@@ -196,21 +365,104 @@ int menu_Edit()
 
     // prompt user for choice and store it
     cout << "Please enter your choice: " << endl;
-    cin >> temp;
-    choice = stoi(temp);
-
-    // error check
-    while (choice != 1 && choice != 2 && choice != 3 && choice != 4)
+    cin >> choice;
+    
+    // validation
+    while (choice < 1 || choice > 5)
     {
+        cout << "Please enter a valid option 1-5: " << endl;
+        cin >> choice;
+    }
 
-        cout << "Invalid entry. Must be a number 1-4." << endl;
-        cout << "Please enter your choice: " << endl;
-        cin >> choice; 
-        choice = stoi(temp);
+    // edit the proper airport object
+    if (choice == 1) // edit the number of passengers
+    {
+        // prompt user for the iata code of the airport to edit
+        string code;
+        cout << "Please enter the IATA code for the airport you would like to edit: " << endl;
+        cin >> code;
+        transform(code.begin(), code.end(),code.begin(), ::toupper); // make the input upper case
+
+        // prompt user for the number of new passengers
+        int new_Passengers;
+        cout << "Please enter the number of new passengers for this airport: " << endl;
+        cin >> new_Passengers;
+
+        // new passengers cannot be negative
+        while (new_Passengers < 0)
+        {
+            cout << "Number of passengers cannot be negative." << endl;
+            cout << "Please enter the number of new passengers for this airport: " << endl;
+            cin >> new_Passengers;
+        }
+
+        // edit and display before + after
+        tree->editPassengers(tree->getRoot(), code, new_Passengers);
+
+        menu_Edit(tree);
+        
+    }
+
+    else if (choice == 2) // edit amount of freight
+    {
+        // prompt user for the iata code of the airport to edit
+        string code;
+        cout << "Please enter the IATA code for the airport you would like to edit: " << endl;
+        cin >> code;
+        transform(code.begin(), code.end(),code.begin(), ::toupper); // make the input upper case
+
+        // prompt user for the number of new freight
+        int new_Freight;
+        cout << "Please enter the new number of freight for this airport: " << endl;
+        cin >> new_Freight;
+
+        // new freight cannot be negative
+        while (new_Freight < 0)
+        {
+            cout << "Number of freight cannot be negative." << endl;
+            cout << "Please enter the new number of freight for this airport: " << endl;
+            cin >> new_Freight;
+        }
+
+        // edit and display before + after
+        tree->editFreight(tree->getRoot(), code, new_Freight);
+
+        // go back to the main menu
+        menu_Edit(tree);
 
     }
 
-    // return the user's choice
-    return choice;
+    else if (choice == 3) // edit the number of flights
+    {
+        // prompt user for the iata code of the airport to edit
+        string code;
+        cout << "Please enter the IATA code for the airport you would like to edit: " << endl;
+        cin >> code;
+        transform(code.begin(), code.end(),code.begin(), ::toupper); // make the input upper case
+
+        // prompt user for the number of new flights
+        int new_Flights;
+        cout << "Please enter the number of new flights for this airport: " << endl;
+        cin >> new_Flights;
+
+        // new flights cannot be negative
+        while (new_Flights < 0)
+        {
+            cout << "Number of flights cannot be negative." << endl;
+            cout << "Please enter the number of new flights for this airport: " << endl;
+            cin >> new_Flights;
+        }
+
+        // edit and display before + after
+        tree->editFlight(tree->getRoot(), code, new_Flights);
+
+        menu_Edit(tree);
+
+    }
+
+    else if (choice == 4)
+    {
+        menu_Main(tree);
+    }
 
 }

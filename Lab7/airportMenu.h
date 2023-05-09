@@ -12,10 +12,10 @@
 using namespace std;
 
     // main menus
-    int menu_Main();
-    int menu_Search();
-    int menu_Report();
-    int menu_MaxMin();
-    int menu_Edit();
+    void menu_Main(BinarySearchTree<Airport>* tree);
+    void menu_Search(BinarySearchTree<Airport>* tree);
+    void menu_Report(BinarySearchTree<Airport>* tree);
+    void menu_MaxMin(BinarySearchTree<Airport>* tree);
+    void menu_Edit(BinarySearchTree<Airport>* tree);
 
 #endif

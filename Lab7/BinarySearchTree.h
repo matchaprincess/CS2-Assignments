@@ -929,7 +929,7 @@ T BinarySearchTree<T>::minObjByDataMember(Node<T>* currRoot, string dataMember)
 {
 
     // declare necessary variables
-    int minValue = 0;
+    int minValue = INT_MAX;
     T currentMinimum;
 
     // in order traversal helper method (compares data mmebers)
