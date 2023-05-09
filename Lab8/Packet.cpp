@@ -124,35 +124,35 @@ void Packet::setPriority(int newPriority)
 
 bool Packet::operator<(const Packet &rhs)
 {
-    return (this->id < rhs.getID() && this->size < rhs.getSize() && this->priority < rhs.getPriority());
+    return (this->priority < rhs.getPriority());
 }
 
 bool Packet::operator>(const Packet &rhs)
 {
-    return (this->id > rhs.getID() && this->size > rhs.getSize() && this->priority > rhs.getPriority());
+    return (this->priority > rhs.getPriority());
 
 }
 
 bool Packet::operator<=(const Packet &rhs)
 {
-    return (this->id <= rhs.getID() && this->size <= rhs.getSize() && this->priority <= rhs.getPriority());
+    return (this->priority <= rhs.getPriority());
    
 }
 
 bool Packet::operator>=(const Packet &rhs)
 {
-    return (this->id >= rhs.getID() && this->size >= rhs.getSize() && this->priority >= rhs.getPriority());
+    return (this->priority >= rhs.getPriority());
 
 }
 
 bool Packet::operator==(const Packet &rhs)
 {
-    return (this->id == rhs.getID() && this->size == rhs.getSize() && this->priority == rhs.getPriority());
+    return (this->priority == rhs.getPriority());
 }
 
 bool Packet::operator!=(const Packet &rhs)
 {
-    return (this->id != rhs.getID() || this->size != rhs.getSize() || this->priority != rhs.getPriority());
+    return (this->priority != rhs.getPriority());
 }
 
 ostream& operator<<(ostream& out, const Packet& rhs)

@@ -22,6 +22,7 @@ public:
     
     void maxHeapify(int i);
     T dequeue();
+    void printHeap();
     
     //interface methods
     bool isEmpty() const;
@@ -155,7 +156,6 @@ T MaxHeapArray<T>::peek() const
     if (isEmpty())
     {
     cout << "empty heap - returning -999" << endl;
-    return -999; //because we don't have an exception class
     }
     return items[0];
 
@@ -318,3 +318,12 @@ T MaxHeapArray<T>::dequeue()
    return max;
 
 }
+
+template <class T>
+void MaxHeapArray<T>::printHeap(){
+
+   for (int i = 0; i < itemCount; i++)
+      cout << items[i] << endl;
+      
+
+}//end printHeap()

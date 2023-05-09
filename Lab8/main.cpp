@@ -47,11 +47,15 @@ int main(int argc, char const *argv[])
 
     }
 
+    // print the current state of the heap
+    //packetHeap.printHeap();
+
     // close the file, we don't need it right now
     myFile.close();
 
     // initialize counter variables 
     // priority levels
+    int priority0 = 0;
     int priority1 = 0;
     int priority2 = 0;
     int priority3 = 0;
@@ -61,14 +65,15 @@ int main(int argc, char const *argv[])
     int priority7 = 0;
 
     // time counts
-    int totalTime = 0;
-    int level1_time = 0;
-    int level2_time = 0;
-    int level3_time = 0;
-    int level4_time = 0;
-    int level5_time = 0;
-    int level6_time = 0;
-    int level7_time = 0;
+    double totalTime = 0.0;
+    double level0_time = 0.0;
+    double level1_time = 0.0;
+    double level2_time = 0.0;
+    double level3_time = 0.0;
+    double level4_time = 0.0;
+    double level5_time = 0.0;
+    double level6_time = 0.0;
+    double level7_time = 0.0;
 
     // initialize variables needed to go through the queue and perform operations
     Packet currentPacket;
@@ -80,60 +85,67 @@ int main(int argc, char const *argv[])
     for (int i = 0; i < size; i++)
     {
         // reset the megabits and time counter variables for each packet in the queue
-        int megabits = 0;
-        int time = 0;
+        double megabits = 0;
+        double time = 0;
 
         // Convert to megabits
-        currentPacket = packetHeap.dequeue();
-        megabits = (currentPacket.getSize()*80)/90;
+        currentPacket = packetHeap.peek();
+        megabits = (currentPacket.getSize()*8);
+        packetHeap.remove();
 
         // Calculate time (90mb/s network)
         time = megabits/90;
 
         // Display megabits and time
-        cout << megabits <<  " megabits transferred in " << time << " seconds" << endl;
+        cout << megabits <<  " megabits transferred in " << time << " seconds from a packet with priority " << currentPacket.getPriority() << endl;
 
         // Add it to the total time
         totalTime += time;
 
         // update priority level details
-        if (currentPacket.getPriority() == 1)
+        if (currentPacket.getPriority() == 0)
+        {
+            level0_time = level0_time + time;
+            priority0++;
+        }
+
+        else if (currentPacket.getPriority() == 1)
         {
             level1_time += time;
             priority1++;
         }
 
-        if (currentPacket.getPriority() == 2)
+        else if (currentPacket.getPriority() == 2)
         {
             level2_time += time;
             priority2++;
         }
 
-        if (currentPacket.getPriority() == 3)
+        else if (currentPacket.getPriority() == 3)
         {
             level3_time += time;
             priority3++;
         }
 
-        if (currentPacket.getPriority() == 4)
+        else if (currentPacket.getPriority() == 4)
         {
             level4_time += time;
             priority4++;
         }
 
-        if (currentPacket.getPriority() == 5)
+        else if (currentPacket.getPriority() == 5)
         {
             level5_time += time;
             priority5++;
         }
 
-        if (currentPacket.getPriority() == 6)
+        else if (currentPacket.getPriority() == 6)
         {
             level6_time += time;
             priority6++;
         }
 
-        if (currentPacket.getPriority() == 7)
+        else if (currentPacket.getPriority() == 7)
         {
             level7_time += time;
             priority7++;
@@ -146,6 +158,7 @@ int main(int argc, char const *argv[])
 
     cout << "\rTIME STATS" << endl;
     cout << "Total time for all packets: " << totalTime << " seconds" << endl;
+    cout << "Time for level 0: " << level0_time << " seconds" << endl;
     cout << "Time for level 1: " << level1_time << " seconds" << endl;
     cout << "Time for level 2: " << level2_time << " seconds" << endl;
     cout << "Time for level 3: " << level3_time << " seconds" << endl;
@@ -157,6 +170,7 @@ int main(int argc, char const *argv[])
     cout << " " << endl;
 
     cout << "TOTAL PACKETS BY PRIORITY LEVEL" << endl;
+    cout << "Level 0: " << priority0 << " packets" << endl;
     cout << "Level 1: " << priority1 << " packets" << endl;
     cout << "Level 2: " << priority2 << " packets" << endl;
     cout << "Level 3: " << priority3 << " packets" << endl;
@@ -170,6 +184,7 @@ int main(int argc, char const *argv[])
     cout << "Testing time using a normal queue" << endl;
 
     // reset the counters
+    priority0 = 0;
     priority1 = 0;
     priority2 = 0;
     priority3 = 0;
@@ -178,14 +193,15 @@ int main(int argc, char const *argv[])
     priority6 = 0;
     priority7 = 0;
 
-    totalTime = 0;
-    level1_time = 0;
-    level2_time = 0;
-    level3_time = 0;
-    level4_time = 0;
-    level5_time = 0;
-    level6_time = 0;
-    level7_time = 0;
+    totalTime = 0.0;
+    level0_time = 0.0;
+    level1_time = 0.0;
+    level2_time = 0.0;
+    level3_time = 0.0;
+    level4_time = 0.0;
+    level5_time = 0.0;
+    level6_time = 0.0;
+    level7_time = 0.0;
 
     // create a normal queue
     queue<Packet> packets2;
@@ -209,7 +225,7 @@ int main(int argc, char const *argv[])
             // create the packet
             Packet currentPacket(toRead);
 
-            // add it to the priority queue
+            // add it to the normal queue
             packets2.push(currentPacket);
 
             // update the counter of size of the normal queue
@@ -223,8 +239,8 @@ int main(int argc, char const *argv[])
     for (int i = 0; i < size; i++)
     {
         // reset the megabits and time counter variables for each packet in the queue
-        int megabits = 0;
-        int time = 0;
+        double megabits = 0;
+        double time = 0;
 
         // get the current packet from the front of the queue
         currentPacket = packets2.front();
@@ -233,55 +249,61 @@ int main(int argc, char const *argv[])
         packets2.pop();
 
         // Convert to megabits
-        megabits = (currentPacket.getSize()*80)/90;
+        megabits = (currentPacket.getSize()*8);
 
         // Calculate time (90mb/s network)
         time = megabits/90;
 
         // Display megabits and time
-        cout << megabits <<  " megabits transferred in " << time << " seconds" << endl;
+        cout << megabits <<  " megabits transferred in " << time << " seconds from a packet with priority " << currentPacket.getPriority() << endl;
 
         // Add it to the total time
         totalTime += time;
 
         // update priority level details
-        if (currentPacket.getPriority() == 1)
+        if (currentPacket.getPriority() == 0)
+        {
+            level0_time += time;
+            priority0++;
+        }
+
+        else if (currentPacket.getPriority() == 1)
         {
             level1_time += time;
             priority1++;
         }
 
-        if (currentPacket.getPriority() == 2)
+        else if (currentPacket.getPriority() == 2)
         {
             level2_time += time;
             priority2++;
         }
 
-        if (currentPacket.getPriority() == 3)
+        else if (currentPacket.getPriority() == 3)
         {
             level3_time += time;
             priority3++;
         }
 
-        if (currentPacket.getPriority() == 4)
+        else if (currentPacket.getPriority() == 4)
         {
             level4_time += time;
             priority4++;
         }
 
-        if (currentPacket.getPriority() == 5)
+        else if (currentPacket.getPriority() == 5)
         {
             level5_time += time;
             priority5++;
         }
 
-        if (currentPacket.getPriority() == 6)
+        else if (currentPacket.getPriority() == 6)
         {
             level6_time += time;
             priority6++;
         }
 
-        if (currentPacket.getPriority() == 7)
+        else if (currentPacket.getPriority() == 7)
         {
             level7_time += time;
             priority7++;
@@ -294,6 +316,7 @@ int main(int argc, char const *argv[])
 
     cout << "\rTIME STATS" << endl;
     cout << "Total time for all packets: " << totalTime << " seconds" << endl;
+    cout << "Time for level 0: " << level0_time << " seconds" << endl;
     cout << "Time for level 1: " << level1_time << " seconds" << endl;
     cout << "Time for level 2: " << level2_time << " seconds" << endl;
     cout << "Time for level 3: " << level3_time << " seconds" << endl;
@@ -305,6 +328,7 @@ int main(int argc, char const *argv[])
     cout << " " << endl;
 
     cout << "TOTAL PACKETS BY PRIORITY LEVEL" << endl;
+    cout << "Level 0: " << priority0 << " packets" << endl;
     cout << "Level 1: " << priority1 << " packets" << endl;
     cout << "Level 2: " << priority2 << " packets" << endl;
     cout << "Level 3: " << priority3 << " packets" << endl;
