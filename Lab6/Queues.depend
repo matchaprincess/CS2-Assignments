@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1678136430 source:c:\aacc\courses teaching\ctp 250\spring 2023\try code and projects\queues\main.cpp
+	<iostream>
+	"ArrayQueue.h"
+
+1678138667 c:\aacc\courses teaching\ctp 250\spring 2023\try code and projects\queues\arrayqueue.h
+	"QueueInterface.h"
+	<iostream>
+
+1678121389 c:\aacc\courses teaching\ctp 250\spring 2023\try code and projects\queues\queueinterface.h
+

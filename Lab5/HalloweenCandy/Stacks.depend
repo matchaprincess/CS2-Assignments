@@ -1,0 +1,27 @@
+# depslib dependency file v1.0
+1677528947 source:c:\aacc\courses teaching\ctp 250\spring 2023\try code and projects\stacks\stacks\main.cpp
+	<iostream>
+	"Phone.h"
+	"ArrayStack.h"
+	"LinkedStack.h"
+
+1677518998 source:c:\aacc\courses teaching\ctp 250\spring 2023\try code and projects\stacks\stacks\phone.cpp
+	"Phone.h"
+	<iostream>
+	<string>
+	<iomanip>
+
+1677518951 c:\aacc\courses teaching\ctp 250\spring 2023\try code and projects\stacks\stacks\phone.h
+	<string>
+
+1677528305 c:\aacc\courses teaching\ctp 250\spring 2023\try code and projects\stacks\stacks\arraystack.h
+	"Stack_Interface.h"
+	<cassert>
+
+1677523723 c:\aacc\courses teaching\ctp 250\spring 2023\try code and projects\stacks\stacks\stack_interface.h
+
+1677528532 c:\aacc\courses teaching\ctp 250\spring 2023\try code and projects\stacks\stacks\linkedstack.h
+	"Node.h"
+
+1677529097 c:\aacc\courses teaching\ctp 250\spring 2023\try code and projects\stacks\stacks\node.h
+

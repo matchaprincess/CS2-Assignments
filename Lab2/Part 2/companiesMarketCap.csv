@@ -1,0 +1,31 @@
+Company name,trading symbol,market cap value(trillions),value in trillions or billions,country,type of company,rank
+Apple,AAPL,2.719,T,US,Technology,1
+Saudi Aramco,2222.SR,2.332,T,Saudi Arabia,Oil and gas,2
+Microsoft,MSFT,2.156,T,US,Technology,3
+Alpabet (Google),GOOG,1.567,T,US,Technology,4
+Amazon,AMZN,1.453,T,US,Technology,5
+Tesla,TSLA,922.35,B,US,Automotive,6
+Berkshire Hathaway,BRK-B,649.93,B,US,Holding,7
+United Health,UNH,502.97,B,US,Health,8
+Meta Platforms (Facebook),META,479.29,B,US,Technology,9
+TSMC,TSM,459.84,B,Taiwan,Semiconductor,10
+NVIDIA,NVDA,450.97,B,US,Technology,11
+Johnson & Johnson,JNJ,448.72,B,US,Holding,12
+Visa,V,446.98,B,US,Digital payment,13
+Exxon Mobil,XOM,381.13,B,US,Oil and gas,14
+Tencent,TCEHY,369.95,B,China,Technology and entertainment,15
+LVMH,MC.PA,356.19,B,France,Luxury Goods,16
+Walmart,WMT,353.99,B,US,Retail,17
+Kweichow Moutai,600519.SS,350.53,B,China,Alcohol,18
+Procter and Gamble,PG,349.59,B,US,Consumer Goods,19
+JP Morgan Chase,JPM,347.18,B,US,Financial Services,20
+Mastercard,MA,341.49,B,US,Technology,21
+Nestle,NESN.SW,333.5,B,Switzerland,Food and beverage,22
+Home Depot,HD,320.22,B,US,Home improvement,23
+Samsung,005930.KS,306.53,B,South Korea,Electronics,24
+Chevron,CVX,305,B,US,Energy,25
+Eli Lilly,LLY,289.43,B,US,Pharmaceuticals,26
+Bank of America,BAC,281.79,B,US,Financial Services,27
+Pfizer,PFE,280.26,B,US ,Health,28
+Roche,ROG.SW,277.57,B,Switzerland,Health,29
+Coca-Cola,KO,275.26,B,US,Nonalcoholic Beverage,30
